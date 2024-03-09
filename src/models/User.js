@@ -12,16 +12,15 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  role: {
-    type: String,
-    enum: ['admin', 'proveedor', 'usuario', 'usuarioLogueado'],
-    default: 'superusuario'
-  },
   email: {
     type: String,
     required: true,
     unique: true
-  }
+  },
+  role: [{
+    ref: 'Role',
+    type: Schema.Types.ObjectId
+  }]
 }, { timestamps: true });
 
 export default model('User', userSchema);

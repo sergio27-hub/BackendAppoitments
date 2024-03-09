@@ -1,15 +1,21 @@
 import { User} from '../../models/index.js';
-import { checkHash } from '../../utils/encrypt.js';
-import moongose from 'mongoose';
 
-export async function getUserByName(username, password) {
+export async function getUserByName(username) {
   const user = await User.findOne({ username });
-
+  console.log(user);
   return user;
-
-
 }
 
+
+export async function updateUserById(id, user) {
+  const updateUser = await User.findByIdAndUpdate(id, user, { new: true });
+  return updateUser;
+}
+
+export async function updateUserByName(username, user) {
+  const updateUser = await User.findOneAndUpdate({ username }, user, { new: true });
+  return updateUser;
+}
 
 export async function deleteUserById(id) {
   const deleteduser = await User.findByIdAndDelete(id);

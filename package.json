@@ -5,13 +5,17 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon src/index.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.24.0",
+    "@babel/node": "^7.23.9",
+    "@babel/preset-env": "^7.24.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.56.0",
     "nodemon": "^3.0.2"

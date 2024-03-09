@@ -14,6 +14,11 @@ const serviceSchema = new Schema({
   price: {
     type: Number,
     required: true
+  },
+  provider: {
+    type: Schema.Types.ObjectId, // Tipo ObjectId para referenciar al proveedor
+    ref: 'Provider', // Nombre del modelo del proveedor
+    required: true
   }
 },{ timestamps: true });
 

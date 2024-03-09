@@ -7,6 +7,10 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
+  creategoria: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -15,11 +19,15 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
+  imageUrls: {
+    type: [String],
+    required: true
+  },
   createdBy: {
     type: String,
-    enum: ['admin', 'root'],
+    enum: ['admin', 'superusuario'],
     required: true
   }
-}, { timestamps: true });
+}, { timestamps: true , versionKey: false});
 
 export default model('Product', productSchema);
