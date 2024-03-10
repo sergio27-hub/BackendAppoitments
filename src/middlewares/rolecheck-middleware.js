@@ -17,7 +17,6 @@ export const isUser = async (req, res, next) => {
     }
 
     if (isUser) {
-      console.log(roles); // Esto podría ser útil para depuración
       next();
     } else {
       throw new HttpStatusError(403, 'Forbidden');
@@ -42,7 +41,6 @@ export const isProvider = async (req, res, next) => {
     }
 
     if (isProvider) {
-      console.log(roles)
       next();
     } else {
       throw new HttpStatusError(403, 'Forbidden');
@@ -56,7 +54,6 @@ export const isProvider = async (req, res, next) => {
 export const isAdmin = async (req, res, next) => {
   try {
     const user = await getUserByName(req.user.username);
-    console.log(user);
     const roles = await Role.find({ _id: { $in: user.role } });
 
     let isAdmin = false;
@@ -68,7 +65,6 @@ export const isAdmin = async (req, res, next) => {
     }
 
     if (isAdmin) {
-      console.log(roles)
       next();
     } else {
       throw new HttpStatusError(403, 'Forbidden');
@@ -81,7 +77,6 @@ export const isAdmin = async (req, res, next) => {
 export const isSuperUser = async (req, res, next) => {
   try {
     const user = await getUserByName(req.user.username);
-    console.log(user);
     const roles = await Role.find({ _id: { $in: user.role } });
 
     let isSuperUser = false;
@@ -93,7 +88,6 @@ export const isSuperUser = async (req, res, next) => {
     }
 
     if (isSuperUser) {
-      console.log(roles)
       next();
     } else {
       throw new HttpStatusError(403, 'Forbidden');
