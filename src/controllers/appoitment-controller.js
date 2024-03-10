@@ -61,3 +61,109 @@ export async function getAppointmentsController(req, res) {
       next(error);
     }
   }
+
+  export async function getAppointmentByIdController(req, res, next) {
+    try {
+      const appointment = await getAppointmentById(req.params.id);
+      if (!appointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+      res.json(appointment);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  export async function deleteAppointmentByIdController(req, res, next) {
+    try {
+      const appointment = await deleteAppointmentById(req.params.id);
+      if (!appointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+      res.json({ message: 'Appointment deleted' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  export async function updateAppointmentByIdController(req, res, next) {
+    try {
+      const { customerName, appointmentTime, service, user } = req.body;
+      const id = req.params.id;
+
+      if (!id) {
+        return res.status(400).json({ message: 'Appointment ID is required' });
+      }
+
+      const foundUser = await getUserByName(user);
+      if (!foundUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      const foundService = await getServiceByName(service);
+      if (!foundService) {
+        return res.status(404).json({ message: 'Service not found' });
+      }
+
+      const appointment = await getAppointmentById(id);
+      if (!appointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+
+      const updatedAppointment = await updateAppointmentById(id, {
+        customerName,
+        appointmentTime,
+        service: foundService._id,
+        user: foundUser._id,
+      });
+
+      res.json(updatedAppointment);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  export async function updateAppointmentByIdPatchController (req, res, next) {
+    try {
+      const id = req.params.id;
+      const { customerName, appointmentTime, service, user } = req.body;
+
+      if (!id) {
+        return res.status(400).json({ message: 'Appointment ID is required' });
+      }
+
+      const updatedAppointmentData = {};
+
+      if (customerName) {
+        updatedAppointmentData.customerName = customerName;
+      }
+
+      if (appointmentTime) {
+        updatedAppointmentData.appointmentTime = appointmentTime;
+      }
+
+      if (service) {
+        const foundService = await getServiceByName(service);
+        if (!foundService) {
+          return res.status(404).json({ message: 'Service not found' });
+        }
+        updatedAppointmentData.service = foundService._id;
+      }
+
+      if (user) {
+        const foundUser = await getUserByName(user);
+        if (!foundUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+        updatedAppointmentData.user = foundUser._id;
+      }
+
+      const updatedAppointment = await updateAppointmentById(id, updatedAppointmentData);
+      if (!updatedAppointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+      res.json(updatedAppointment);
+    } catch (error) {
+      next(error);
+    }
+  }

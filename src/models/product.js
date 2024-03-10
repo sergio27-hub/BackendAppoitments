@@ -7,7 +7,7 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  creategoria: {
+  category: {
     type: String,
     required: true
   },
@@ -24,8 +24,8 @@ const productSchema = new Schema({
     required: true
   },
   createdBy: {
-    type: String,
-    enum: ['admin', 'superusuario'],
+    type: Schema.Types.ObjectId,
+    enum: ['admin'],
     required: true
   }
 }, { timestamps: true , versionKey: false});

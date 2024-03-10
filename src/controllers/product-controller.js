@@ -1,4 +1,5 @@
 import { createProduct, getProductById, deleteProductById, updateProductById , getAllProducts } from '../services/database/product-db-services.js';
+import { getUserByName } from '../services/database/user-db-services.js';
 
 export async function getProductsController(req, res, next) {
   try {
@@ -11,12 +12,16 @@ export async function getProductsController(req, res, next) {
 
 export async function createProductController(req, res, next) {
   try {
-    const createdProduct = await createProduct(req.body);
-    res.status(201).json(createdProduct);
+    const createdBy = req.user.id; // Suponiendo que el ID del usuario está en req.user.id
+    console.log(req.user);
+    const productData = { ...req.body, createdBy }; // Agregar el createdBy al cuerpo del producto
+    const product = await createProduct(productData);
+    res.json(product);
   } catch (error) {
     next(error);
   }
 }
+
 
 export async function getProductByIdController(req, res, next) {
   try {

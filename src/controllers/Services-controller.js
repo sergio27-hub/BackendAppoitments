@@ -114,7 +114,6 @@ export async function updateServiceByIdController(req, res, next) {
         name,
         description,
         price,
-        category,
         provider: foundProvider._id,
       });
 

@@ -58,3 +58,7 @@ const createdUser = await userDoc.save();
 return createdUser;
 };
 
+export async function findAdminUser() {
+  const adminUser = await User.findOne({ role: 'admin' });
+  return adminUser;
+}

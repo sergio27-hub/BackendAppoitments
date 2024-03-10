@@ -26,6 +26,32 @@ export const isUser = async (req, res, next) => {
   }
 };
 
+export const isproadmin = async (req, res, next) => {
+  try {
+    const user = await getUserByName(req.user.username);
+    const roles = await Role.find({ _id: { $in: user.role } });
+
+    let isProvider = false;
+    let isAdmin = false;
+    for (const role of roles) {
+      if (role.name === 'provider') {
+        isProvider = true;
+      }
+      if (role.name === 'admin') {
+        isAdmin = true;
+      }
+    }
+
+    if (isProvider || isAdmin) {
+      next();
+    } else {
+      throw new HttpStatusError(403, 'Forbidden');
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export const isProvider = async (req, res, next) => {
   try {
