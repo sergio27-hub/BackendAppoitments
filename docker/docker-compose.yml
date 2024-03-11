@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  api:
+    container_name: API-CRUD-APPOINTMENT
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/Project
+    depends_on:
+      - mongo
+    command: npm run start
+  mongo:
+    container_name: MONGO-DB
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - 32-mongodb_mongo:/data/db
+    logging:
+      driver: none
+volumes:
+  32-mongodb_mongo:
+    external: true
