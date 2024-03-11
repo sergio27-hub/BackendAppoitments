@@ -93,7 +93,8 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
 
 
 ## Arquitectura
--------
+------
+```bash
 📦BACKEND-PROJECT
   ┣ 📂.vscode
   ┃ ┗ 📜launch.json # Debugging configuration file
@@ -142,18 +143,17 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
   ┣ 📜env.template
   ┣ 📜package-lock.json
   ┗ 📜package.json
-
+```
 
 ---
 
 ### Dependencias principales
-
-- **express**: Un marco web para Node.js que facilita la creación de aplicaciones web y API.
-- **express-openapi**: Una herramienta para generar y validar API RESTful automáticamente a partir de especificaciones OpenAPI.
-- **swagger-ui-express**: Middleware de Express para servir la interfaz de usuario de Swagger UI para la documentación de API.
-- **morgan**: Un middleware de registro de solicitudes HTTP para Express.
-- **winston**: Una biblioteca de registro para Node.js.
-- **got**: Una biblioteca de solicitud HTTP para Node.js.
+- `express` : Un marco web para Node.js que facilita la creación de aplicaciones web y API.
+- `express-openapi`: Una herramienta para generar y validar API RESTful automáticamente a partir de especificaciones OpenAPI.
+- `swagger-ui-express`: Middleware de Express para servir la interfaz de usuario de Swagger UI para la documentación de API.
+- `morgan`: Un middleware de registro de solicitudes HTTP para Express.
+- `winston`: Una biblioteca de registro para Node.js.
+- `got`: Una biblioteca de solicitud HTTP para Node.js.
 
 ### Linter
 
