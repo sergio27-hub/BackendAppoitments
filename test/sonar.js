@@ -12,3 +12,4 @@ sonarqubeScanner({
     'sonar.password': 'adminadmin',
   },
 }, () => {});
+
