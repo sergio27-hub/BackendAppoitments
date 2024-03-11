@@ -1,0 +1,17 @@
+'200':
+  description: "The request has succeeded."
+'201':
+  description: "The resource has been successfully created."
+'400':
+  description: "The request cannot be processed due to bad request syntax."
+'401':
+  description: "Authentication is required and has failed or has not yet been provided."
+'403':
+  description: "The server understood the request but refuses to authorize it."
+'404':
+  description: "The requested resource could not be found."
+'409':
+  description: "The request could not be completed due to a conflict with the current state of the resource."
+'500':
+  description: "Internal server error."
+

@@ -4,3 +4,540 @@
     responses:
       '200':
         description: ping/pong
+/login:
+  post:
+    summary: Login
+    tags:
+      - Authentication
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+    responses:
+      '200':
+        description: Successfully logged in
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Authentication token
+      '401':
+        description: Unauthorized, invalid credentials
+
+/appointments:
+  get:
+    summary: Retrieve all appointments
+    tags:
+      - Appointments
+    security:
+      - bearerAuth: []
+    responses:
+      '200':
+        description: Successfully retrieved appointments
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Appointment'
+  post:
+    summary: Create a new appointment
+    tags:
+      - Appointments
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Appointment'
+    responses:
+      '201':
+        description: Successfully created appointment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      '400':
+        description: Invalid request body
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+/appointments/{id}:
+  get:
+    summary: Retrieve a specific appointment by ID
+    tags:
+      - Appointments
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the appointment to retrieve
+    responses:
+      '200':
+        description: Successfully retrieved appointment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      '404':
+        description: Appointment not found
+
+  delete:
+    summary: Delete a specific appointment by ID
+    tags:
+      - Appointments
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the appointment to delete
+    responses:
+      '204':
+        description: Successfully deleted appointment
+      '404':
+        description: Appointment not found
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+  put:
+    summary: Update a specific appointment by ID
+    tags:
+      - Appointments
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the appointment to update
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Appointment'
+    responses:
+      '200':
+        description: Successfully updated appointment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      '404':
+        description: Appointment not found
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+  patch:
+    summary: Partially update a specific appointment by ID
+    tags:
+      - Appointments
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the appointment to update
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Appointment'
+    responses:
+      '200':
+        description: Successfully patched appointment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      '404':
+        description: Appointment not found
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+
+/products:
+  get:
+    summary: Retrieve all products
+    tags:
+      - Products
+    responses:
+      '200':
+        description: Successfully retrieved products
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+  post:
+    summary: Create a new product
+    tags:
+      - Products
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+    responses:
+      '201':
+        description: Successfully created product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      '400':
+        description: Invalid request body
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+/products/{id}:
+  get:
+    summary: Retrieve a specific product by ID
+    tags:
+      - Products
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the product to retrieve
+    responses:
+      '200':
+        description: Successfully retrieved product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      '404':
+        description: Product not found
+
+  put:
+    summary: Update a specific product by ID
+    tags:
+      - Products
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the product to update
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+    responses:
+      '200':
+        description: Successfully updated product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      '404':
+        description: Product not found
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+  delete:
+    summary: Delete a specific product by ID
+    tags:
+      - Products
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID of the product to delete
+    responses:
+      '204':
+        description: Successfully deleted product
+      '404':
+        description: Product not found
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+
+
+
+/services:
+  get:
+    summary: Retrieve all services
+    tags:
+      - Services
+    responses:
+      '200':
+        description: Successfully retrieved services
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Service'
+  post:
+    summary: Create a new service
+    tags:
+      - Services
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service'
+    responses:
+      '201':
+        description: Successfully created service
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      '400':
+        description: Invalid request body
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+/services/{id}:
+  get:
+    summary: Retrieve a service by ID
+    tags:
+      - Services
+    parameters:
+      - in: path
+        name: id
+        description: ID of the service to retrieve
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Successfully retrieved service
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      '404':
+        description: Service not found
+  put:
+    summary: Update a service by ID
+    tags:
+      - Services
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: ID of the service to update
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service'
+    responses:
+      '200':
+        description: Successfully updated service
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      '400':
+        description: Invalid request body
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+      '404':
+        description: Service not found
+  delete:
+    summary: Delete a service by ID
+    tags:
+      - Services
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: ID of the service to delete
+        required: true
+        schema:
+          type: string
+    responses:
+      '204':
+        description: Service successfully deleted
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+      '404':
+        description: Service not found
+
+
+
+/users:
+  get:
+    summary: Retrieve all users
+    tags:
+      - Users
+    responses:
+      '200':
+        description: Successfully retrieved users
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+  post:
+    summary: Create a new user
+    tags:
+      - Users
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    responses:
+      '201':
+        description: Successfully created user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '400':
+        description: Invalid request body
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+/users/{id}:
+  get:
+    summary: Retrieve a user by ID
+    tags:
+      - Users
+    parameters:
+      - in: path
+        name: id
+        description: ID of the user to retrieve
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Successfully retrieved user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '404':
+        description: User not found
+  put:
+    summary: Update a user by ID
+    tags:
+      - Users
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: ID of the user to update
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    responses:
+      '200':
+        description: Successfully updated user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '400':
+        description: Invalid request body
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+      '404':
+        description: User not found
+  delete:
+    summary: Delete a user by ID
+    tags:
+      - Users
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: ID of the user to delete
+        required: true
+        schema:
+          type: string
+    responses:
+      '204':
+        description: User successfully deleted
+      '401':
+        description: Unauthorized, authentication token missing or invalid
+      '404':
+        description: User not found
+/users/username/{username}:
+  get:
+    summary: Retrieve a user by username
+    tags:
+      - Users
+    parameters:
+      - in: path
+        name: username
+        description: Username of the user to retrieve
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Successfully retrieved user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '404':
+        description: User not found
+

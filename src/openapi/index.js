@@ -14,14 +14,14 @@ function parseYaml(file) {
 export const swaggerDoc = {
     openapi: "3.0.0",
     info: {
-        title: "My simple API",
-        description: "A simple API to learn how to write OpenAPI Specification",
+      title: "APPOITMENT API",
+        description: "This is a simple API for managing appointments ",
     },
-    paths: parseYaml('paths'),
     components: {
-        schemas: parseYaml('schemas'),
-        securitySchemes: parseYaml('security'),
-        examples: parseYaml('examples'),
-        responses: parseYaml('responses'),
+      schemas: parseYaml('schemas'),
+      securitySchemes: parseYaml('security'),
     },
+    Response:parseYaml('responses'),
+    examples: parseYaml('examples'),
+    paths: parseYaml('paths'),
 };

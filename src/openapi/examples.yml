@@ -1,0 +1,62 @@
+examples:
+  CreateUserRequest:
+    summary: Ejemplo de una solicitud para crear un usuario.
+    value:
+      method: POST
+      header: []
+      body:
+        username: "user3"
+        password: "contraseñaSegura123"
+        email: "user3@users.com"
+      url: "{{baseUrl}}/users/signup"
+
+  CreateUserResponse:
+    summary: Ejemplo de una respuesta tras crear un usuario.
+    value:
+      id: "nuevoIdDeUsuario"
+      username: "user3"
+      email: "user3@users.com"
+
+  ListUsersRequest:
+    summary: Ejemplo de una solicitud para obtener todos los usuarios.
+    value:
+      method: GET
+      header: []
+
+  ListUsersResponse:
+    summary: Ejemplo de una respuesta con una lista de usuarios.
+    value:
+      - id: "12345"
+        username: "johndoe"
+        email: "johndoe@example.com"
+
+  GetUserByIdRequest:
+    summary: Ejemplo de una solicitud para obtener un usuario por ID.
+    value:
+      method: GET
+      header: []
+
+  GetUserByIdResponse:
+    summary: Ejemplo de una respuesta al obtener un usuario por ID.
+    value:
+      id: "12345"
+      username: "johndoe"
+      email: "johndoe@example.com"
+
+  UpdateUserRequest:
+    summary: Ejemplo de una solicitud para actualizar un usuario.
+    value:
+      method: PUT
+      header: []
+      body:
+        username: "nuevoNombreDeUsuario"
+        password: "nuevaContraseñaSegura123"
+        email: "nuevoEmail@example.com"
+      url: "{{baseUrl}}/users/update/{{userId}}"
+
+  DeleteUserRequest:
+    summary: Ejemplo de una solicitud para eliminar un usuario por ID.
+    value:
+      method: DELETE
+      header: []
+      url: "{{baseUrl}}/users/{{userId}}"

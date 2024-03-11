@@ -1,0 +1,106 @@
+Appointment:
+  type: object
+  required:
+    - customerName
+    - appointmentTime
+    - service
+    - user
+  properties:
+    customerName:
+      type: string
+    appointmentTime:
+      type: string
+      format: date-time
+    service:
+      type: string
+      format: uuid
+      description: ID del servicio reservado
+    user:
+      type: string
+      format: uuid
+      description: ID del usuario que realiza la reserva
+Role:
+  properties:
+    name:
+      type: string
+      enum:
+        - user
+        - admin
+        - superuser
+        - provider
+      description: Define los roles de usuario disponibles en la aplicación
+Service:
+  type: object
+  required:
+    - name
+    - description
+    - price
+    - provider
+  properties:
+    name:
+      type: string
+    description:
+      type: string
+    price:
+      type: number
+    provider:
+      type: string
+      format: uuid
+      description: ID del proveedor del servicio
+
+User:
+  type: object
+  required:
+    - username
+    - password
+    - email
+    - role
+  properties:
+    username:
+      type: string
+    password:
+      type: string
+      format: password
+      writeOnly: true
+    email:
+      type: string
+      format: email
+    role:
+      type: array
+      items:
+        type: string
+        enum:
+          - user
+          - admin
+          - superuser
+          - provider
+      description: ID del rol del usuario
+
+Product:
+  type: object
+  required:
+    - name
+    - category
+    - description
+    - price
+    - imageUrls
+    - createdBy
+  properties:
+    name:
+      type: string
+    category:
+      type: string
+    description:
+      type: string
+    price:
+      type: number
+    imageUrls:
+      type: array
+      items:
+        type: string
+        format: uri
+        description: URL de la imagen del producto
+    createdBy:
+      type: string
+      format: uuid
+      description: ID del administrador que creó el producto

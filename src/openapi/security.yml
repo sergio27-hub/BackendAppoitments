@@ -2,6 +2,9 @@ apiKey:
   type: apiKey
   name: Authorization
   in: header
-bearerAuth:
+
+
+BearerAuth:
   type: http
   scheme: bearer
+  bearerFormat: JWT
