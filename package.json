@@ -6,7 +6,18 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore .",
+    "compose:test": "docker-compose -f docker/docker-compose.test.yml up -d",
+    "compose:test:down": "docker-compose -f docker/docker-compose.test.yml down",
+    "compose:app": "docker-compose --env-file .env -f docker/docker-compose.yml up -d",
+    "compose:app:build": "docker-compose --env-file .env -f docker/docker-compose.yml build",
+    "compose:app:down": "docker-compose --env-file .env -f docker/docker-compose.yml down",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html ava",
+    "test:watch": "cross-env NODE_ENV=test ava --watch --verbose",
+    "test:report": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-lcov ava || echo 1; node test/sonar.js",
+    "test:purge": "rm -r .nyc_output .scannerwork coverage",
+    "copy:env": "cp env.template .env"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +27,21 @@
     "@babel/core": "^7.24.0",
     "@babel/node": "^7.23.9",
     "@babel/preset-env": "^7.24.0",
+    "ava": "^6.1.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "nodemon": "^3.0.2"
+    "mock-req-res": "^1.2.1",
+    "mongodb-memory-server": "^9.1.6",
+    "nock": "^13.5.4",
+    "nodemon": "^3.0.2",
+    "nyc": "^15.1.0",
+    "sinon": "^17.0.1",
+    "sonarqube-scanner": "^3.3.0",
+    "supertest": "^6.3.4"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -29,6 +49,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "got": "^14.2.1",
     "js-yaml": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.1",
@@ -36,5 +57,13 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.11.0"
-  }
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ]
+  },
+  "require": [
+    "dotenv/config"
+  ]
 }

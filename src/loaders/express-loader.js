@@ -2,12 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 
+import { HttpStatusError } from 'common-errors';
 import router from '../routes/index.js';
 import { errorMiddleware } from '../middlewares/error-middleware.js';
 import { morganMiddleware } from '../config/morgan.js';
 import { swaggerDoc } from '../openapi/index.js';
 
-export default function(server){   
+export default function(server){
     /* Config */
     server.use(cors());
     server.use(express.json());
@@ -22,5 +23,7 @@ export default function(server){
     /* Routes */
     server.use(router);
     /* Error handler */
-    server.use(errorMiddleware);
+    server.use((req, res) => {
+        errorMiddleware(new HttpStatusError(404, "Resource not found"), req, res);
+    });
 }
