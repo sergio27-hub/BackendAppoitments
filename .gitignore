@@ -11,3 +11,15 @@ coverage
 .package-lock.json
 .env*
 !.env.template
+
+# Ignore the public folder
+
+public
+
+# Ignore the build folder
+
+build
+
+# Ignore the node_modules folder
+
+node_modules
