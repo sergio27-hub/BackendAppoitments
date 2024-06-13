@@ -8,19 +8,20 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/Project
-    depends_on:
-      - mongo
+      - MONGO_URL=mongodb:mongodb+srv://sergiovargas:travieso89@cluster0.azjxklx.mongodb.net/project?retryWrites=true&w=majority
     command: npm run start
-  mongo:
-    container_name: MONGO-DB
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - 32-mongodb_mongo:/data/db
-    logging:
-      driver: none
-volumes:
-  32-mongodb_mongo:
-    external: true
+#     environment:
+#       - MONGO_URL=mongodb:mongodb+srv://sergiovargas:t*****@cluster0.azjxklx.mongodb.net/project?retryWrites=true&w=majority
+#     command: npm run start
+#   mongo:
+#     container_name: MONGO-DB
+#     image: mongo:latest
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - 32-mongodb_mongo:/data/db
+#     logging:
+#       driver: none
+# volumes:
+#   32-mongodb_mongo:
+#     external: true

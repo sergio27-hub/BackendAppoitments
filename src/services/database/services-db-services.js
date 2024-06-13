@@ -1,7 +1,16 @@
 import { Service } from "../../models/index.js";
 
-export async function getServices() {
-  const services = await Service.find();
+export async function getServices(offset = 0, limit = 10) {
+  const total = await Service.countDocuments({});
+  const values = await Service.find({})
+  .skip(offset)
+  .limit(limit)
+  .exec();
+  return { total, values };
+}
+
+export async function getAllServices() {
+  const services = await Service.find({});
   return services;
 }
 
@@ -29,7 +38,7 @@ export async function updateServiceById(id, update) {
 
 export async function getServicesByCategory(category) {
   const services = await Service.find
-  ({ category : category });
+  ({ category });
   return services;
 }
 

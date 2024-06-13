@@ -1,14 +1,12 @@
 import morgan from 'morgan';
 import logger from '../utils/index.js';
 
-export const morganMiddleware = morgan((tokens, req, res) => {
-    return [
+export const morganMiddleware = morgan((tokens, req, res) => [
       tokens.method(req, res),
       tokens.url(req, res),
       tokens.status(req, res),
       tokens['response-time'](req, res), 'ms'
-    ].join(' ');
-  }, {
+    ].join(' '), {
     stream: {
       write(message) {
         const statusCode = message.split(' ')[2];

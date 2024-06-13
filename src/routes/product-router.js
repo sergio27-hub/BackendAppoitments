@@ -11,11 +11,11 @@ const router = Router();
 
 router.get('/', getProductsController);
 
-router.post('/', isproadmin, createProductController);
+router.post('/',createProductController);
 
 router.get('/:id', getProductByIdController);
 
-router.put('/:id', isproadmin, updateProductByIdController);
+router.patch('/:id', isproadmin, updateProductByIdController);
 
 router.delete('/:id', isproadmin, deleteProductByIdController);
 

@@ -7,12 +7,24 @@ const serviceSchema = new Schema({
     type: String,
     required: true
   },
+  imageURL: {
+    type: String,
+    required: true
+  },
+  imageUrls: {
+    type: [String],
+    required: false
+  },
   description: {
     type: String,
     required: true
   },
   price: {
     type: Number,
+    required: true
+  },
+  category: {
+    type: String,
     required: true
   },
   provider: {

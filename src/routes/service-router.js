@@ -10,11 +10,11 @@ import {
 const router = Router();
 
 router.get('/', getServicesController);
-router.post('/create', isproadmin, createServiceController);
+router.post('/create', createServiceController);
 router.get('/:id', getServiceByIdController);
-router.delete('/:id', isproadmin, deleteServiceByIdController);
-router.put('/update/:id', isproadmin, updateServiceByIdController);
-router.put('/update', isproadmin, updateServiceByIdController);
-router.patch('/updatepatch/:id', isproadmin, updateServiceByIdPatchController);
+router.delete('/:id', deleteServiceByIdController);
+router.put('/update/:id', updateServiceByIdController);
+router.put('/update', updateServiceByIdController);
+router.patch('/updatepatch/:id', updateServiceByIdPatchController);
 
 export default router;

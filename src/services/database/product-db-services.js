@@ -28,6 +28,6 @@ export async function updateProductById(id, update) {
 
 export async function getProductsByCategory(category) {
   const products = await Product.find
-  ({ category: category });
+  ({ category });
   return products;
 }

@@ -12,6 +12,9 @@ const Config = {
     app: {
         secretKey: process.env.SECRET_KEY,
     },
+    sonarqube:{
+        password: process.env.SONARQUBE_PASSWORD,
+    }
 }
 
 

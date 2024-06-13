@@ -10,7 +10,7 @@ export const createRoles = async () => {
       { name: "user" },
       { name: "provider" },
       { name: "admin" },
-      { name: "superusers" }
+      { name: "superuser" }
     ]);
 
     console.log(values);

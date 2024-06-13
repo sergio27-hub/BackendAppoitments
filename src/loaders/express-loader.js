@@ -10,7 +10,9 @@ import { swaggerDoc } from '../openapi/index.js';
 
 export default function(server){
     /* Config */
-    server.use(cors());
+    server.use(cors({
+      origin: 'http://localhost:3001'
+  }));
     server.use(express.json());
     server.use(express.urlencoded({ extended: true}));
     /* Static files */
@@ -26,4 +28,5 @@ export default function(server){
     server.use((req, res) => {
         errorMiddleware(new HttpStatusError(404, "Resource not found"), req, res);
     });
+    server.use(express.static('public'));
 }

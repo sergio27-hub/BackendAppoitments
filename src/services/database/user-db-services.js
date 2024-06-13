@@ -6,6 +6,11 @@ export async function getUserByName(username) {
   return user;
 }
 
+export async function getUserByEmail(email) {
+  const user = await User.findOne({ email });
+  console.log(user);
+  return user;
+}
 
 export async function updateUserById(id, user) {
   const updateUser = await User.findByIdAndUpdate(id, user, { new: true });
@@ -32,8 +37,8 @@ export async function getUsers(filters){
   const { name , after , before } = filters;
 
   const query = {
-    username : { $regex: name ? name : '', $options: 'i' },
-    //username : name && new RegExp(name, 'i') : undefined
+    username : { $regex: name || '', $options: 'i' },
+    // username : name && new RegExp(name, 'i') : undefined
   };
 
   const cleanedQuery = Object.fromEntries(

@@ -89,7 +89,7 @@ export async function getAppointmentsController(req, res) {
   export async function updateAppointmentByIdController(req, res, next) {
     try {
       const { customerName, appointmentTime, service, user } = req.body;
-      const id = req.params.id;
+      const {id} = req.params;
 
       if (!id) {
         return res.status(400).json({ message: 'Appointment ID is required' });
@@ -125,7 +125,7 @@ export async function getAppointmentsController(req, res) {
 
   export async function updateAppointmentByIdPatchController (req, res, next) {
     try {
-      const id = req.params.id;
+      const {id} = req.params;
       const { customerName, appointmentTime, service, user } = req.body;
 
       if (!id) {

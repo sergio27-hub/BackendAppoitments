@@ -1,5 +1,5 @@
-import Role from "../models/role.js";
 import { HttpStatusError } from "common-errors";
+import Role from "../models/role.js";
 import { getUserById, getUserByName } from "../services/database/user-db-services.js";
 
 
@@ -34,11 +34,9 @@ export const isproadmin = async (req, res, next) => {
     let isProvider = false;
     let isAdmin = false;
     for (const role of roles) {
-      if (role.name === 'provider') {
-        isProvider = true;
-      }
-      if (role.name === 'admin') {
+      if (role.name === 'provider' || role.name === 'admin') {
         isAdmin = true;
+        isProvider = true;
       }
     }
 
