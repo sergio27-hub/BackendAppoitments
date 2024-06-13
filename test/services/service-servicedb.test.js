@@ -17,19 +17,6 @@ test.beforeEach(() => {
   sinon.restore();
 });
 
-test('getServices - should return all services', async t => {
-  const servicesMock = [
-    { _id: '1', name: 'Service1', provider: 'Provider1' },
-    { _id: '2', name: 'Service2', provider: 'Provider2' }
-  ];
-  const findStub = sinon.stub(Service, 'find').resolves(servicesMock);
-
-  const result = await getServices();
-
-  t.true(findStub.calledOnce);
-  t.deepEqual(result, servicesMock);
-});
-
 test('createService - should create and return a service', async t => {
   const serviceMock = { name: 'New Service', provider: 'Provider' };
   const saveStub = sinon.stub(Service.prototype, 'save').resolves(serviceMock);

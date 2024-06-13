@@ -10,9 +10,7 @@ import { swaggerDoc } from '../openapi/index.js';
 
 export default function(server){
     /* Config */
-    server.use(cors({
-      origin: 'http://localhost:3001'
-  }));
+    server.use(cors());
     server.use(express.json());
     server.use(express.urlencoded({ extended: true}));
     /* Static files */
