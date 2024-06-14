@@ -48,11 +48,18 @@ export async function createUserController(req, res, next) {
       return res.status(400).send({ message: errors });
     }
 
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+    if (imagePath) {
+      const absoluteImagePath = path.resolve(`./public${imagePath}`);
+      console.log(`Image stored at: ${absoluteImagePath}`);
+    }
+
     const newUser = await createUser({
       username,
       password: await encryptPassword(password),
       email,
-      image: req.file ? `/uploads/${req.file.filename}` : undefined,
+      image: imagePath,
     });
 
     if (role) {
@@ -75,6 +82,7 @@ export async function createUserController(req, res, next) {
     next(error);
   }
 }
+
 const validacion = (username, password, email, image, sevalida) => {
   const errors = [];
   const warnings = [];
