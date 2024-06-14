@@ -1,9 +1,9 @@
 import { User} from '../../models/index.js';
 
-export async function getUserByName(username) {
-  const user = await User.findOne({ username });
+export async function getUserByName(user) {
+  const userdata = await User.findOne({ username : user});
   console.log(user);
-  return user;
+  return userdata;
 }
 
 export async function getUserByEmail(email) {

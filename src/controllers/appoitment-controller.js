@@ -9,7 +9,7 @@ import {   getAppointments,
   getAppointmentsByProvider,
   getAppointmentsByCustomer } from '../services/database/appointment-db-services.js';
 import { getServiceByName } from '../services/database/services-db-services.js';
-import { getUserByName } from '../services/database/user-db-services.js';
+import { getUserByName , getUserById  } from '../services/database/user-db-services.js';
 
 
 export async function getAppointmentsController(req, res) {
@@ -167,3 +167,40 @@ export async function getAppointmentsController(req, res) {
       next(error);
     }
   }
+
+  export async function getAppointmentsByUserController(req, res, next) {
+    try {
+      const { user } = req.params;
+      const foundUser = await getUserByName(user);
+      if (!foundUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      const appointments = await getAppointmentsByUser(foundUser._id);
+      if (appointments.length === 0) {
+        return res.status(404).json({ message: 'No appointments found' });
+      }
+
+      res.json(appointments);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  export async function getAppointmentsByUserIdController(req, res, next) {
+    try {
+      const { id } = req.params;
+      const foundUser = await getUserById(id);
+      if (!foundUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      const appointments = await getAppointmentsByUser(id);
+      if (appointments.length === 0) {
+        return res.status(404).json({ message: 'No appointments found' });
+      }
+      res.json(appointments);
+    } catch (error) {
+      next(error);
+    }
+  }
+

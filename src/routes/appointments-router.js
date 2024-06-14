@@ -4,16 +4,17 @@ import {
   isAdmin, isProvider, isSuperUser, isUser, isproadmin,
 } from '../middlewares/rolecheck-middleware.js';
 import {
-  getAppointmentsController, createAppointmentController, getAppointmentByIdController, deleteAppointmentByIdController, updateAppointmentByIdController, updateAppointmentByIdPatchController,
+  getAppointmentsController, createAppointmentController, getAppointmentsByUserIdController , getAppointmentByIdController, deleteAppointmentByIdController, updateAppointmentByIdController, updateAppointmentByIdPatchController,
 } from '../controllers/appoitment-controller.js';
 
 const router = Router();
 
-router.get('/', isproadmin, getAppointmentsController);
-router.post('/', isproadmin, createAppointmentController);
-router.get('/:id', isproadmin, getAppointmentByIdController);
-router.delete('/:id', isproadmin, deleteAppointmentByIdController);
-router.put('/update/:id', isproadmin, updateAppointmentByIdController);
-router.patch('/updatepatch/:id', isproadmin, updateAppointmentByIdPatchController);
+router.get('/', getAppointmentsController);
+router.get('/user/:id', getAppointmentsByUserIdController)
+router.post('/', createAppointmentController);
+router.get('/:id', getAppointmentByIdController);
+router.delete('/:id', deleteAppointmentByIdController);
+router.put('/update/:id', updateAppointmentByIdController);
+router.patch('/updatepatch/:id', updateAppointmentByIdPatchController);
 
 export default router;
