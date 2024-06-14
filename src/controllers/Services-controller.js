@@ -25,6 +25,8 @@ export async function createServiceController(req, res, next) {
     try {
       const services = Array.isArray(req.body) ? req.body : [req.body];
       const createdServices = [];
+      console.log('Services:', services);
+      console.log('Files:', req.files);
       console.log(services);
 
       for (const service of services) {

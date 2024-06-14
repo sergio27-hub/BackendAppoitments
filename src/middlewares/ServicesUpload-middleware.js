@@ -13,6 +13,7 @@ const storageProducts = multer.diskStorage({
     const folderName = req.body.name || 'default'; // Usar el nombre del servicio
     const uploadPath = `./public/services/${folderName}/`;
     createFolderIfNotExists(uploadPath);
+    console.log(uploadPath);
     cb(null, uploadPath);
   },
   filename (req, file, cb) {
