@@ -27,7 +27,10 @@ export async function createServiceController(req, res, next) {
       const createdServices = [];
       console.log('Services:', services);
       console.log('Files:', req.files);
-      console.log(services);
+
+      if (!req.files || req.files.length === 0) {
+        throw new HttpStatusError(400, 'At least one image is required');
+      }
 
       for (const service of services) {
         const trimmedService = {};
@@ -54,9 +57,6 @@ export async function createServiceController(req, res, next) {
         }
 
         const imageUrls = req.files.map(file => file.path.replace('public/', '').replace(/\\/g, '/'));
-        if (imageUrls.length === 0) {
-          throw new HttpStatusError(400, 'At least one image is required');
-        }
 
         const newService = {
           name,
@@ -74,6 +74,7 @@ export async function createServiceController(req, res, next) {
 
       res.status(201).json(createdServices);
     } catch (error) {
+      console.error('Error creating service:', error);
       next(new HttpStatusError(error.status || 500, error.message));
     }
   });
